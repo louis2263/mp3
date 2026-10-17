@@ -6,17 +6,15 @@
 <title>點擊相片播放音樂</title>
 <style>
 body{font-family: sans-serif; padding:20px;}
+#myPic{max-width: 100%; width:450px; cursor:pointer;}
 </style>
 </head>
 <body>
 
 <h2>點擊下面相片播放音樂</h2>
-<p>版本：v1.03</p>
-
+<p>版本：v1.04</p>
 <p id="msg">✅ 等待載入</p>
-
-<img id="myPic" src="photo.jpg" alt="相片" width="450" style="cursor:pointer;"
-onerror="document.getElementById('msg').innerText='❌ 圖片讀取失敗，搵唔到 photo.jpg'">
+<div id="imgBox"></div>
 
 <audio id="myAudio">
   <source src="music.mp3" type="audio/mpeg">
@@ -25,22 +23,40 @@ onerror="document.getElementById('msg').innerText='❌ 圖片讀取失敗，搵�
 
 <script>
 const audio = document.getElementById("myAudio");
-const pic = document.getElementById("myPic");
+const msg = document.getElementById("msg");
+const imgBox = document.getElementById("imgBox");
 
+// JS動態建立圖片
+const pic = new Image();
+pic.src = "photo.jpg";
+pic.alt = "相片";
+pic.width = 450;
+pic.id = "myPic";
+
+pic.onload = function(){
+  msg.innerText = "✅ 圖片載入成功";
+  imgBox.appendChild(pic);
+}
+pic.onerror = function(){
+  msg.innerText = "❌ 圖片讀取失敗，搵唔到 photo.jpg";
+}
+
+// 音樂偵測
 audio.addEventListener('loadeddata',()=>{
-  document.getElementById('msg').innerText += "｜✅音樂檔案正常";
+  msg.innerText += "｜✅音樂檔案正常";
 })
 audio.addEventListener('error',()=>{
-  document.getElementById('msg').innerText += "｜❌搵唔到 music.mp3";
+  msg.innerText += "｜❌搵唔到 music.mp3";
 })
 
+// 點擊圖片播放
 pic.onclick = function() {
   if(audio.paused){
     audio.play();
-    document.getElementById('msg').innerText = "▶️ 播放中，點擊相片暫停";
+    msg.innerText = "▶️ 播放中，點擊相片暫停";
   }else{
     audio.pause();
-    document.getElementById('msg').innerText = "⏸️ 已暫停";
+    msg.innerText = "⏸️ 已暫停";
   }
 }
 </script>
