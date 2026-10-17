@@ -2,27 +2,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>點擊相片播放音樂</title>
+<style>
+body{font-family: sans-serif; padding:20px;}
+</style>
 </head>
 <body>
 
 <h2>點擊下面相片播放音樂</h2>
-<p>版本：v1.01</p>
+<p>版本：v1.03</p>
+
+<p id="msg">✅ 等待載入</p>
+
+<img id="myPic" src="photo.jpg" alt="相片" width="450" style="cursor:pointer;"
+onerror="document.getElementById('msg').innerText='❌ 圖片讀取失敗，搵唔到 photo.jpg'">
 
 <audio id="myAudio">
   <source src="music.mp3" type="audio/mpeg">
   瀏覽器唔支援音樂播放
 
-<img id="myPic" src="photo.jpg" alt="相片" width="450" style="cursor:pointer;"
-onerror="document.getElementById('msg').innerText='❌ 圖片讀取失敗，搵唔到 photo.jpg'">
-
-<p id="msg">✅ 等待載入</p>
 
 <script>
 const audio = document.getElementById("myAudio");
 const pic = document.getElementById("myPic");
 
-// 音樂載入監測
 audio.addEventListener('loadeddata',()=>{
   document.getElementById('msg').innerText += "｜✅音樂檔案正常";
 })
