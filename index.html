@@ -13,18 +13,30 @@
   瀏覽器唔支援音樂播放
 
 
-<!-- 改用 raw 絕對網址，直接讀取GitHub圖片 -->
-<img id="myPic" src="https://raw.githubusercontent.com/louis2263/mp3/main/photo.jpg" alt="打卡相片" width="450" style="cursor:pointer;" onerror="document.write('<p>圖片載入失敗</p>')">
+<img id="myPic" src="photo.jpg" alt="相片" width="450" style="cursor:pointer;"
+onerror="document.getElementById('msg').innerText='❌ 圖片讀取失敗，搵唔到 photo.jpg'">
+
+<p id="msg">✅ 等待載入</p>
 
 <script>
 const audio = document.getElementById("myAudio");
 const pic = document.getElementById("myPic");
 
+// 音樂載入監測
+audio.addEventListener('loadeddata',()=>{
+  document.getElementById('msg').innerText += "｜✅音樂檔案正常";
+})
+audio.addEventListener('error',()=>{
+  document.getElementById('msg').innerText += "｜❌搵唔到 music.mp3";
+})
+
 pic.onclick = function() {
   if(audio.paused){
     audio.play();
+    document.getElementById('msg').innerText = "▶️ 播放中，點擊相片暫停";
   }else{
     audio.pause();
+    document.getElementById('msg').innerText = "⏸️ 已暫停";
   }
 }
 </script>
