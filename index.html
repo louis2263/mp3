@@ -13,7 +13,8 @@
   瀏覽器唔支援音樂播放
 
 
-<img id="myPic" src="photo.jpg" alt="打卡相片" width="450" style="cursor:pointer;">
+<!-- 改用 raw 絕對網址，直接讀取GitHub圖片 -->
+<img id="myPic" src="https://raw.githubusercontent.com/louis2263/mp3/main/photo.jpg" alt="打卡相片" width="450" style="cursor:pointer;" onerror="document.write('<p>圖片載入失敗</p>')">
 
 <script>
 const audio = document.getElementById("myAudio");
